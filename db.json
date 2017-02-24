@@ -1,0 +1,77 @@
+{
+  "users": [
+    {
+      "id": "yicyahoo",
+      "tags": [
+        "sports",
+        "food"
+      ],
+      "profile_image": "profile_yicyahoo.png",
+      "votes": [
+        {
+          "survey_id": "snape",
+          "vote": "left"
+        }
+      ],
+      "surveys": []
+    },
+    {
+      "id": "awesome_voter",
+      "tags": [
+        "IOS",
+        "awesomeness"
+      ],
+      "profile_image": "profile_awesome_voter.png",
+      "votes": [],
+      "surveys": []
+    },
+    {
+      "id": "caltrain",
+      "tags": [
+        "San Francisco",
+        "joke"
+      ],
+      "profile_image": "profile_caltrain.png",
+      "votes": [],
+      "surveys": []
+    }
+  ],
+  "surveys": [
+    {
+      "id": "snape",
+      "question": "Do you love or hate Snape in Harry Potter series?",
+      "body": "",
+      "tags": [
+        "novel",
+        "literature",
+        "personality"
+      ],
+      "option_left": "Love",
+      "option_right": "Hate",
+      "my_vote": "left",
+      "count_left": 15327,
+      "count_right": 2045,
+      "image": "survey_snape.jpg",
+      "created": 1487900110602,
+      "modified": 1487901136404
+    },
+    {
+      "id": "pretzel",
+      "question": "What do you like, sweet or salty pretzel?",
+      "body": "",
+      "tags": [
+        "food",
+        "taste",
+        "sugar"
+      ],
+      "option_left": "Sweet",
+      "option_right": "Salty",
+      "my_vote": "right",
+      "count_left": 3746,
+      "count_right": 4283,
+      "image": "survey_pretzel.jpg",
+      "created": 1487900119602,
+      "modified": null
+    }
+  ]
+}

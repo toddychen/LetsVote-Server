@@ -1,0 +1,40 @@
+{
+  "name": "letsvote-server",
+  "version": "1.0.0",
+  "description": "A Server for LetsVote App",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint lib/ test.js",
+    "test": "export DEBUG=knex:* && jenkins-mocha --recursive test.js",
+    "test-no-coverage": "export DEBUG=knex:* && jenkins-mocha --no-coverage --recursive test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.corp.yahoo.com:yic/LetsVote-Server.git"
+  },
+  "author": "Yi Chen <yic@yahoo-inc.com>",
+  "yahoo": {
+    "bugzilla": {
+      "product": "letsvote-server",
+      "component": "vdep"
+    },
+    "custodian": {
+      "name": "Yi Chen",
+      "email": "yic@yahoo-inc.com"
+    },
+    "screwdriver": {}
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "lowdb": "^0.15.5",
+    "multer": "^1.3.0",
+    "shortid": "^2.2.6"
+  },
+  "yhint": {
+    "excludes": [
+      "./*"
+    ]
+  }
+}
