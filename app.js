@@ -53,7 +53,6 @@ app.post('/user/update', function (req, res) {
   .find({id: req.body.id})
   .assign({
     tags: req.body.tags,
-    profile_image: req.body.profile_image,
   })
   .write()
 
@@ -66,13 +65,13 @@ app.post('/survey/create', function (req, res) {
   console.log('/survey/create',req.body);
   db.get('surveys')
   .push({
-    id: req.body.id,
+    id: shortid.generate(),
     question: req.body.question,
     body: req.body.body,
     tags: req.body.tags,
     option_left: req.body.option_left,
     option_right: req.body.option_right,
-    my_vote: req.body.my_vote,
+    my_vote: '',
     count_left: req.body.count_left,
     count_right: req.body.count_right,
     image: req.body.image,
@@ -106,7 +105,7 @@ app.get('/surveys', function (req, res) {
 })
 
 
-app.post('/survey/vote', function (req, res) {
+app.post('/vote', function (req, res) {
   console.log('/survey/vote',req.body);
   let survey = db.get('surveys')
   .find({id: req.body.survey_id})
@@ -119,41 +118,46 @@ app.post('/survey/vote', function (req, res) {
   console.log('survey', survey);
   console.log('user', user);
 
+  // Update User
+  let voted = false;
+  for (let vote of user.votes) {
+    if (vote.survey_id == req.body.survey_id) {
+      vote.vote = req.body.vote;
+      voted = true;
+    }
+  }
+
+  if (voted == false) {
+    user.votes.push({survey_id: req.body.survey_id, vote: req.body.vote})
+  }
+
+  db.get('users')
+    .find({id: req.body.user_id})
+    .assign({
+      votes: user.votes,
+    })
+    .write()
+
+  // Update Survey
   if (req.body.vote == 'left'){
     db.get('surveys')
       .find({id: req.body.survey_id})
       .assign({
+        my_vote: 'left',
         count_left: survey.count_left + 1,
         modified: Date.now(),
       })
       .write()
-
-    user.votes.push({survey_id: req.body.survey_id, vote: req.body.vote})
-
-    db.get('users')
-      .find({id: req.body.user_id})
-      .assign({
-        votes: user.votes,
-      })
-      .write()
-
     res.send('Update Right Vote Done!');
   } else if (req.body.vote == 'right') {
     db.get('surveys')
       .find({id: req.body.survey_id})
       .assign({
+        my_vote: 'right',
         count_right: survey.count_right + 1,
         modified: Date.now(),
       })
       .write()
-
-    db.get('users')
-      .find({id: req.body.user_id})
-      .assign({
-        votes: user.votes.push({survey_id: req.body.survey_id, vote: req.body.vote}),
-      })
-      .write()
-
     res.send('Update Left Vote Done!');
   } else {
     res.send('Invalid Vote');
